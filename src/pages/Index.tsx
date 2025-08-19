@@ -14,6 +14,7 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api
 const toDollar = (n?: number | null) =>
   typeof n === "number" && n > 0 ? "$".repeat(Math.min(4, n)) : "—";
 const fakeScore = () => Math.floor(80 + Math.random() * 20);
+console.log("API base:", import.meta.env.VITE_API_BASE_URL);
 
 // CHANGED: read prefs from localStorage
 const getPrefs = () => JSON.parse(localStorage.getItem("mm_prefs") || "null");
