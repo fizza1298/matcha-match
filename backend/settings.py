@@ -132,4 +132,6 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",              # Vite dev server
     "https://matcha-match.vercel.app",    # Vercel production
+    "https://matcha-match-eight.vercel.app",
+ "https://matcha-match-git-main-fizza1298s-projects.vercel.app",
 ]
