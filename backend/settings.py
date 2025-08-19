@@ -124,5 +124,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ["*"]
-CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = [
+    "matcha-match.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",              # Vite dev server
+    "https://matcha-match.vercel.app",    # Vercel production
+]
