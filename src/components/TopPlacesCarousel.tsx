@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, MapPin, Coffee, ChevronLeft, ChevronRight } from 'lucide-react';
+import { mockMatchaPlaces } from '@/data/mockMatcha';
 
 interface TopPlace {
   id: string;
@@ -91,80 +92,19 @@ const TopPlacesCarousel: React.FC = () => {
       } catch (error) {
         console.error('Error fetching top places:', error);
         // Fallback to sample data if API fails
-        setTopPlaces([
-          {
-            id: '1',
-            place_id: '1',
-            name: 'Matcha-Ya',
-            address: 'NW.05/10 Steam Mill La, Haymarket',
-            rating: 4.8,
-            price_level: '$$',
-            distance: 0.2,
-            photos: [],
-            lat: -33.8688,
-            lng: 151.2093
-          },
-          {
-            id: '2',
-            place_id: '2',
-            name: 'Matcha House',
-            address: '123 George St, Sydney',
-            rating: 4.6,
-            price_level: '$$$',
-            distance: 0.5,
-            photos: [],
-            lat: -33.8688,
-            lng: 151.2093
-          },
-          {
-            id: '3',
-            place_id: '3',
-            name: 'Green Tea Garden',
-            address: '456 Pitt St, Sydney',
-            rating: 4.4,
-            price_level: '$$',
-            distance: 0.8,
-            photos: [],
-            lat: -33.8688,
-            lng: 151.2093
-          },
-          {
-            id: '4',
-            place_id: '4',
-            name: 'Zen Matcha',
-            address: '789 Market St, Sydney',
-            rating: 4.7,
-            price_level: '$$$',
-            distance: 1.2,
-            photos: [],
-            lat: -33.8688,
-            lng: 151.2093
-          },
-          {
-            id: '5',
-            place_id: '5',
-            name: 'Pure Matcha',
-            address: '321 Oxford St, Sydney',
-            rating: 4.5,
-            price_level: '$$',
-            distance: 1.5,
-            photos: [],
-            lat: -33.8688,
-            lng: 151.2093
-          },
-          {
-            id: '6',
-            place_id: '6',
-            name: 'Artisan Matcha',
-            address: '654 Crown St, Sydney',
-            rating: 4.9,
-            price_level: '$$$$',
-            distance: 2.0,
-            photos: [],
-            lat: -33.8688,
-            lng: 151.2093
-          }
-        ]);
+        const fallback = mockMatchaPlaces.slice(0, 6).map((place) => ({
+          id: place.id,
+          place_id: place.id,
+          name: place.name,
+          address: place.address,
+          rating: place.rating,
+          price_level: place.priceRange,
+          distance: place.distance,
+          photos: place.image ? [place.image] : [],
+          lat: place.lat,
+          lng: place.lng,
+        }));
+        setTopPlaces(fallback);
       } finally {
         setLoading(false);
       }
