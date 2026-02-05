@@ -130,6 +130,26 @@
 
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(
+      120deg,
+      hsl(var(--MASTER-website)) 0%,
+      hsl(var(--MASTER-header)) 45%,
+      hsl(var(--MASTER-accent)) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-shift 18s ease infinite;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 

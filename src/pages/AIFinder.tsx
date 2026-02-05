@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import ChatWidget from "@/components/ChatWidget";
 import TopPlacesCarousel from "@/components/TopPlacesCarousel";
-import { MessageCircle, Sparkles, X } from "lucide-react";
+import { MessageCircle, Sparkles } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function AIFinder() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [demoOpen, setDemoOpen] = useState(false);
 
   // Check if chat should be opened from URL parameter
   useEffect(() => {
@@ -21,9 +30,44 @@ export default function AIFinder() {
     }
   }, [searchParams, navigate]);
 
+  useEffect(() => {
+    const isVercel = window.location.hostname.includes("vercel.app");
+    if (!isVercel) return;
+    const dismissed = sessionStorage.getItem("mm_demo_notice_dismissed");
+    if (!dismissed) setDemoOpen(true);
+  }, []);
+
+  const handleDemoClose = (open: boolean) => {
+    if (!open) sessionStorage.setItem("mm_demo_notice_dismissed", "true");
+    setDemoOpen(open);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <Dialog open={demoOpen} onOpenChange={handleDemoClose}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Live Demo Notice</DialogTitle>
+            <DialogDescription>
+              The Vercel site is a frontend UI/UX showcase. Due to Google Cloud
+              Platform billing restrictions and the Ollama LLM running locally,
+              the full AI-powered backend and Google Maps integrations run in a
+              local development environment.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <a
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+              href="https://www.youtube.com/watch?v=p_Va9aGfPpY"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Watch the Full Demo
+            </a>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <div className="w-full px-4 py-8">
 
         
