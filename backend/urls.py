@@ -20,6 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("places.urls")),
-    path("health/", lambda r: JsonResponse({"ok": True, "app": "matcha-match"})),  # NEW
+    path("api/ai/", include("ai_chat.urls")),
 ]
 

@@ -19,6 +19,16 @@ export default {
 		},
 		extend: {
 			colors: {
+				/* ===== STANDARDIZED COLOR PALETTE ===== */
+				/* Easy to edit - just change these hex values */
+				website: '#6FAE74',    // Website background
+				header: '#BEDAC0',      // Header
+				cards: '#405842',       // Cards and popovers
+				text: '#2A2A2A',        // Primary text
+				accentLight: '#E5F0E6', // Additional accents
+
+				/* ===== CSS VARIABLE MAPPING ===== */
+				/* These automatically use the master palette above */
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -52,12 +62,6 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				matcha: {
-					light: 'hsl(var(--matcha-light))',
-					medium: 'hsl(var(--matcha-medium))',
-					dark: 'hsl(var(--matcha-dark))',
-					forest: 'hsl(var(--matcha-forest))'
-				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -67,7 +71,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+
+				/* ===== SEMANTIC ALIASES ===== */
+				/* These automatically use the master palette above */
+				appbg: 'hsl(var(--MASTER-website))',
+				appaccent: 'hsl(var(--MASTER-header))',
+				appprimary: 'hsl(var(--MASTER-header))',
+				appsecondary: 'hsl(var(--MASTER-cards))',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -76,20 +87,12 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
 				}
 			},
 			animation: {

@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-load_dotenv()
-GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 
+# Load environment variables
+load_dotenv()
+
+# Google Maps API key - use a separate backend key
+GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY", "demo-key")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +40,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "django.contrib.admin","django.contrib.auth","django.contrib.contenttypes",
     "django.contrib.sessions","django.contrib.messages","django.contrib.staticfiles",
-    "rest_framework","corsheaders","places",
+    "rest_framework","corsheaders","places","ai_chat",
 ]
 
 MIDDLEWARE = [
@@ -124,14 +127,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = [
-    "matcha-match.onrender.com",
-    "localhost",
-    "127.0.0.1",
-]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",              # Vite dev server
-    "https://matcha-match.vercel.app",    # Vercel production
-    "https://matcha-match-eight.vercel.app",
- "https://matcha-match-git-main-fizza1298s-projects.vercel.app",
-]
+ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_ALL_ORIGINS = True

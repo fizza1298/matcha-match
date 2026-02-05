@@ -10,6 +10,8 @@ export interface MatchaPlace {
   lng: number;
   image: string;
   tags: string[];
+  heartsCount?: number; // NEW: Number of hearts for this place
+  isHearted?: boolean; // NEW: Whether current user has hearted this place
 }
 
 export const mockMatchaPlaces: MatchaPlace[] = [
@@ -23,8 +25,9 @@ export const mockMatchaPlaces: MatchaPlace[] = [
     address: "123 Green St, San Francisco, CA",
     lat: 37.7749,
     lng: -122.4194,
-    image: "/api/placeholder/300/200",
-    tags: ["ceremonial grade", "organic", "wifi"]
+    image: "http://localhost:8001/api/ai/placeholder/300/200",
+    tags: ["ceremonial grade", "organic", "wifi"],
+    heartsCount: 42
   },
   {
     id: "2", 
@@ -36,8 +39,9 @@ export const mockMatchaPlaces: MatchaPlace[] = [
     address: "456 Matcha Ave, San Francisco, CA",
     lat: 37.7849,
     lng: -122.4094,
-    image: "/api/placeholder/300/200",
-    tags: ["premium blends", "quiet atmosphere", "desserts"]
+    image: "http://localhost:8001/api/ai/placeholder/300/200",
+    tags: ["premium blends", "quiet atmosphere", "desserts"],
+    heartsCount: 35
   },
   {
     id: "3",
@@ -49,8 +53,9 @@ export const mockMatchaPlaces: MatchaPlace[] = [
     address: "789 Tea Rd, San Francisco, CA",
     lat: 37.7649,
     lng: -122.4294,
-    image: "/api/placeholder/300/200",
-    tags: ["affordable", "casual", "takeout"]
+    image: "http://localhost:8001/api/ai/placeholder/300/200",
+    tags: ["affordable", "casual", "takeout"],
+    heartsCount: 28
   },
   {
     id: "4",
@@ -62,8 +67,9 @@ export const mockMatchaPlaces: MatchaPlace[] = [
     address: "321 Ceremony Way, San Francisco, CA",
     lat: 37.7549,
     lng: -122.4394,
-    image: "/api/placeholder/300/200",
-    tags: ["tea ceremony", "authentic", "premium"]
+    image: "http://localhost:8001/api/ai/placeholder/300/200",
+    tags: ["tea ceremony", "authentic", "premium"],
+    heartsCount: 67
   },
   {
     id: "5",
@@ -75,7 +81,8 @@ export const mockMatchaPlaces: MatchaPlace[] = [
     address: "654 Innovation St, San Francisco, CA",
     lat: 37.7449,
     lng: -122.4494,
-    image: "/api/placeholder/300/200",
-    tags: ["modern twist", "instagram-worthy", "fusion"]
+    image: "http://localhost:8001/api/ai/placeholder/300/200",
+    tags: ["modern twist", "instagram-worthy", "fusion"],
+    heartsCount: 19
   }
 ];

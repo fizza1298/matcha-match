@@ -4,17 +4,19 @@ import Header from "@/components/Header";
 import ViewToggle from "@/components/ViewToggle";
 import ListView from "@/components/ListView";
 import MapView from "@/components/MapView"; // current MapView fetches its own data
+import TopPlacesCarousel from "@/components/TopPlacesCarousel";
 import { mockMatchaPlaces, MatchaPlace } from "@/data/mockMatcha";
 import { useToast } from "@/hooks/use-toast";
+import { useFavorites } from "@/hooks/useFavorites";
+import ChatWidget from "@/components/ChatWidget";
 
 // CHANGED: keep a single place to define your API base
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
 
 // helpers
 const toDollar = (n?: number | null) =>
   typeof n === "number" && n > 0 ? "$".repeat(Math.min(4, n)) : "—";
 const fakeScore = () => Math.floor(80 + Math.random() * 20);
-console.log("API base:", import.meta.env.VITE_API_BASE_URL);
 
 // CHANGED: read prefs from localStorage
 const getPrefs = () => JSON.parse(localStorage.getItem("mm_prefs") || "null");
@@ -58,6 +60,7 @@ export default function Index() {
   const [places, setPlaces] = useState<MatchaPlace[]>(mockMatchaPlaces);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const { getHeartCount, isHearted } = useFavorites();
 
   useEffect(() => {
     initializePlaces();
@@ -104,8 +107,10 @@ export default function Index() {
         distance: typeof p.distance === "number" ? p.distance : 0,
         matchScore: typeof p.match_score === "number" ? p.match_score : fakeScore(),
         address: (p.vicinity ?? p.address ?? "") as string,
-        photoUrl: Array.isArray(p.photos) && p.photos.length ? p.photos[0] : undefined,
+        photos: Array.isArray(p.photos) && p.photos.length ? p.photos : [`http://localhost:8001/api/ai/placeholder/400/200/`],
         openNow: p.open_now ?? p.opening_hours?.open_now ?? undefined,
+        heartsCount: getHeartCount(p.id ?? p.place_id ?? ""),
+        isHearted: isHearted(p.id ?? p.place_id ?? ""),
       }));
 
       // CHANGED: apply preferences before setting places
@@ -120,7 +125,11 @@ export default function Index() {
       console.error("Failed to fetch places from backend:", err);
 
       // CHANGED: also apply preferences to demo data so the list is still personalized
-      const rankedFallback = applyPrefs(mockMatchaPlaces, getPrefs());
+      const rankedFallback = applyPrefs(mockMatchaPlaces, getPrefs()).map(place => ({
+        ...place,
+        heartsCount: getHeartCount(place.id),
+        isHearted: isHearted(place.id),
+      }));
       setPlaces(rankedFallback);
 
       toast({
@@ -137,33 +146,29 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       <Header />
       <div className="container mx-auto px-4 py-6">
+        {/* Top Places Carousel */}
+        <div className="mb-8">
+          <TopPlacesCarousel />
+        </div>
         <div className="flex justify-center mb-6 space-x-4">
           <ViewToggle currentView={currentView} onViewChange={setCurrentView} />
-          <button
-            onClick={() => navigate("/calendar")}
-            className="bg-matcha-medium hover:bg-matcha-dark text-white font-semibold py-2 px-4 rounded-lg transition"
-          >
-            View Matcha Calendar
-          </button>
         </div>
-
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-matcha-dark mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Loading matcha places...</p>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+              <p className="text-foreground font-cute">Loading matcha places...</p>
             </div>
           </div>
         ) : currentView === "list" ? (
           <ListView places={places} />
         ) : (
-          // NOTE: your current MapView fetches its own data,
-          // so it won't use the ranked list yet.
-          // If you want the map to share the same ranked data, change MapView to accept props and do:
-          // <MapView places={places} />
           <MapView />
         )}
       </div>
+      
+      {/* Chat Widget - Fixed at bottom-right corner */}
+      <ChatWidget />
     </div>
   );
 }
