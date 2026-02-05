@@ -1,232 +1,95 @@
 # 🍵 MatchaMatch - AI-Powered Matcha Café Finder
 
-## 🏆 OpenxAI Global AI Accelerator 2025 Hackathon Submission
+**🏆 2nd Place Winner | OpenxAI Global AI Accelerator 2025**  
+**🎥 [Watch the Live Demo](https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3Dp_Va9aGfPpY)**
 
-**Track**: Social Network + Textstream (Sentiment Analysis)  
-**Team**: Fizzafatima , Hiba Wajeeh, Jeyasri Sundar, Romy Dobbie
-**University**: The University of Sydney
-**Project**: MatchaMatch - Connecting people with their perfect matcha experience through AI and sentiment analysis
+MatchaMatch is an intelligent full-stack application that helps users find their perfect matcha café using natural language queries, AI-powered recommendations, and real-time sentiment analysis. Instead of rigid search filters, users can describe their mood, preferences, and needs in plain English, and our AI-orchestration layer finds the perfect match.
 
-## 🎯 Project Overview
+## ✨ Key Features
 
-MatchaMatch is an intelligent application that helps users find their perfect matcha café match using natural language queries, AI-powered recommendations, and sentiment analysis. Instead of traditional search filters, users can describe their mood, preferences, and needs in natural language, and our AI will find the perfect café for them.
+* **🤖 AI-Powered Search:** Natural language processing to understand complex user intent (e.g., "I need a quiet spot with good lighting to study for my USYD finals").
+* **🗺️ Google Maps Integration:** Seamlessly fetches real-time location data and café details using the Google Maps Places API.
+* **💬 Intelligent Chat Interface:** A conversational AI assistant that provides personalized recommendations based on real-time sentiment.
+* **❤️ Social Engagement:** Full favorites system and community review platform to save and rate matcha spots.
+* **📱 Modern Tech Stack:** A responsive, high-performance interface built with **React (TypeScript)** and a **Django REST Framework** backend.
 
-### ✨ Key Features
+## 🧠 Technical Implementation
 
-- **🤖 AI-Powered Search**: Natural language queries instead of rigid filters
-- **💚 Sentiment Analysis**: Understands user mood and preferences
-- **🗺️ Google Maps Integration**: Real-time location-based recommendations
-- **💬 Intelligent Chat Interface**: Conversational AI recommendations
-- **🎯 Personalized Matching**: Learns from user preferences and interactions
-- **❤️ Favorites System**: Heart and save your favorite matcha spots
-- **⭐ Reviews & Ratings**: Share your experiences and read others' reviews
-- **📱 Modern Web App**: Beautiful, responsive interface built with React + Django
+### **AI & Sentiment Analysis**
 
-### 🧠 AI Integration
+* **Ollama Integration:** Utilizes local LLM processing for high-speed, privacy-focused natural language understanding.
+* **Sentiment Tracking:** Analyzes user queries to detect emotional context and adjust recommendations dynamically.
 
-- **Ollama Integration**: Local AI processing for privacy and speed
-- **Sentiment Analysis**: Detects user mood and adjusts recommendations
-- **Natural Language Processing**: Understands complex user requests
-- **Intelligent Matching**: AI-powered café recommendations
+### **Architecture**
+
+* **Backend:** Django 4.2 with REST API, SQLite development database, and Google Maps SDK integration.
+* **Frontend:** React 18, Vite, and Tailwind CSS for a professional, mobile-first UI.
+* **Security:** Environment-based credential management (dotenv) for API key protection.
+
+## 🌐 Deployment Status & Infrastructure Note
+
+> **Note on Live Demo:** The live version currently hosted on Vercel serves as a **Frontend UI/UX showcase**. Due to Google Cloud Platform billing restrictions and the computational requirements of the Ollama LLM, the full **AI-powered backend** and **Google Maps API integrations** are configured to run in a **local development environment** only.
+
+To experience the full end-to-end functionality (AI recommendations + Real-time Maps), please follow the **Quick Start** guide below to run the Django backend and Ollama locally.
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### **Prerequisites**
 
-- **Python 3.9+** installed on your system
-- **Node.js 18+** and npm for frontend
-- **Ollama** installed and running locally
+* Python 3.9+
+* Node.js 18+
+* [Ollama](https://ollama.ai/) installed and running locally
 
-### One-Command Setup
+### **One-Command Setup**
 
+1. **Clone and Enter**
 ```bash
-# 1. Clone the repository
 git clone <your-repo-url>
 cd matcha-match
+```
 
-# 2. Set up Python environment and install dependencies
+2. **Local AI Engine (Required for Backend)**
+* Ensure **Ollama** is running locally.
+* Pull the required model: `ollama pull llama2` (or your preferred model).
+
+3. **Backend Setup (Django REST Framework)**
+```bash
 python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-
-# 3. Set up frontend dependencies
-npm install
-
-# 4. Start the backend server
 python manage.py runserver
+```
 
-# 5. In a new terminal, start the frontend
+4. **Frontend Setup (React + Vite)**
+```bash
+npm install
 npm run dev
 ```
 
-### 🎯 What Happens Next
+## 🎨 User Flow
 
-1. **Backend starts** at `http://localhost:8000`
-2. **Frontend starts** at `http://localhost:8080`
-3. **Open your browser** and start finding your perfect matcha match!
+1. **Query:** User types: "I want a peaceful café for studying."
+2. **Analyze:** AI extracts key intents: *Quiet*, *Study-friendly*, *Matcha*.
+3. **Fetch:** System queries Google Maps API for local cafés.
+4. **Rank:** Sentiment-aware algorithms match the best results.
+5. **Display:** Map highlights locations with AI-generated insights.
 
-## 🏗️ Architecture
+## 🔧 Environment Configuration
 
-### Backend (Django)
-- **Django 4.2** with REST API
-- **SQLite database** for development (easy to migrate to PostgreSQL)
-- **Google Maps API** integration for location services
-- **Ollama integration** for AI features
-- **Sentiment analysis** for user mood detection
+Create a `.env` file in the root directory to manage your keys:
 
-### Frontend (React + Vite)
-- **React 18** with TypeScript
-- **Vite** for fast development
-- **Tailwind CSS** for modern styling
-- **Google Maps** integration
-- **Real-time chat interface**
-
-### AI Features
-- **Local Ollama processing** for privacy
-- **Sentiment analysis** of user queries
-- **Natural language understanding** for café preferences
-- **Intelligent matching** algorithms
-
-## 🎨 User Experience Flow
-
-1. **User opens app** → Sees map + chat interface
-2. **Types natural language query** → "I want a peaceful café for studying"
-3. **AI analyzes intent** → Extracts: quiet, study-friendly, any location
-4. **AI searches database** → Finds matching cafés
-5. **AI generates response** → Friendly, personalized recommendation
-6. **Map highlights locations** → Shows cafés with AI insights
-7. **Sentiment tracking** → Records user preferences for future matches
-
-## 🔧 Technical Implementation
-
-### Dependencies
-
-All Python dependencies are managed in `requirements.txt`:
-- **Django 4.2.23** - Web framework
-- **Django REST Framework 3.16.1** - API development
-- **Google Maps API** - Location services
-- **python-dotenv** - Environment configuration
-- **Pillow** - Image processing
-- **Requests** - HTTP client
-
-### Environment Variables
-
-Create a `.env` file in the root directory:
 ```env
-GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
-SECRET_KEY=your_django_secret_key_here
+GOOGLE_MAPS_API_KEY=your_key_here
+SECRET_KEY=your_django_key_here
 DEBUG=True
 ```
 
-### Database
+## 📞 Contact & Support
 
-- **Development**: SQLite (included)
-- **Production**: PostgreSQL (easy migration)
+Developed by **Fizza Fatima** Bachelor of Advanced Computing (Cybersecurity) | University of Sydney
 
-## 🎯 Hackathon Requirements Met
-
-### ✅ Sentiment Analysis
-- **User mood detection** from natural language queries
-- **Emotional context** for café recommendations
-- **Sentiment-aware AI responses**
-
-### ✅ AI Integration
-- **Ollama local AI processing**
-- **Natural language understanding**
-- **Intelligent recommendation system**
-
-### ✅ Real-World Application
-- **Solves actual user problems**
-- **Google Maps integration**
-- **Professional architecture**
-
-### ✅ Technical Excellence
-- **Full-stack development** (Django + React)
-- **API-first design**
-- **Modern development practices**
-
-### ✅ Social Features (NEW!)
-- **❤️ Favorites System** - Heart and save favorite matcha spots
-- **⭐ Reviews & Ratings** - Community-driven feedback system
-- **👥 User Interactions** - Social engagement through place recommendations
-
-## 🚀 Future Enhancements
-
-- **Machine learning** for better recommendations
-- **Social features** for café reviews and ratings
-- **Mobile app** development
-- **Advanced sentiment analysis** with conversation memory
-- **Integration with café POS systems**
-
-## 📱 Demo Video
-
-**🎥 Demo Video**: [Add your YouTube link here showing the app in action]
-
-**📋 What to demonstrate in your video:**
-1. **App Overview** - Show the main interface and explain the concept
-2. **Favorites Feature** - Demonstrate hearting places and viewing favorites page
-3. **Reviews System** - Show adding reviews and viewing them
-4. **AI Chat** - Demonstrate the conversational interface
-5. **Real-time Features** - Show the app working with live data
-6. **Why It Should Win** - Explain the innovation and real-world impact
-
-## 🏆 Why This Should Win
-
-1. **Real Problem Solved**: Finding the right café is a genuine user pain point
-2. **AI Innovation**: Combines sentiment analysis with location services
-3. **Professional Quality**: Production-ready code with proper architecture
-4. **User Experience**: Intuitive, conversational interface
-5. **Technical Excellence**: Full-stack development with modern tools
-6. **Scalability**: Easy to extend and improve
-
-## 🤝 Contributing
-
-This is a hackathon submission for the OpenxAI Global AI Accelerator 2025. The project demonstrates:
-
-- **AI integration** with Ollama
-- **Sentiment analysis** for user experience
-- **Real-world application** development
-- **Professional software engineering** practices
-
-## 🚨 Troubleshooting
-
-### Common Issues & Solutions
-
-**❌ "Module not found" errors**
-```bash
-# Make sure you're in the virtual environment
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-**❌ "npm install" fails**
-```bash
-# Clear npm cache and try again
-npm cache clean --force
-npm install
-```
-
-**❌ Backend won't start**
-```bash
-# Check if port 8000 is in use
-lsof -i :8000  # On Windows: netstat -ano | findstr :8000
-# Kill the process or use a different port
-python manage.py runserver 8001
-```
-
-**❌ Frontend won't start**
-```bash
-# Check if port 3000/8081 is in use
-lsof -i :3000  # On Windows: netstat -ano | findstr :3000
-# The app will automatically find an available port
-```
-
-## 📞 Support
-
-For questions about this submission, contact: thefizzafatima@gmail.com
+**Email:** thefizzafatima@gmail.com
 
 ---
 
-**Built with ❤️ for the OpenxAI Global AI Accelerator 2025**
-
-*Connecting people with their perfect matcha experience through the power of AI*
+*Built for the OpenxAI Global AI Accelerator 2025 - Awarded 2nd Place Overall.*
