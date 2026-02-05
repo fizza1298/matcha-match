@@ -21,6 +21,7 @@ const TopPlacesCarousel: React.FC = () => {
   const [topPlaces, setTopPlaces] = useState<TopPlace[]>([]);
   const [loading, setLoading] = useState(true);
   const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
+  const fallbackImages = mockMatchaPlaces.map((place) => place.image).filter(Boolean);
 
   // Get user's current location
   useEffect(() => {
@@ -66,8 +67,9 @@ const TopPlacesCarousel: React.FC = () => {
           const topRated = places
             .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
             .slice(0, 6)
-            .map((place: any) => {
+            .map((place: any, index: number) => {
               console.log('Processing place:', place.name, 'Photos:', place.photos);
+              const fallbackImage = fallbackImages[index % Math.max(1, fallbackImages.length)];
               return {
                 id: place.id || place.place_id,
                 place_id: place.place_id || place.id,
@@ -76,7 +78,9 @@ const TopPlacesCarousel: React.FC = () => {
                 rating: place.rating || 0,
                 price_level: place.price_range || '$$',
                 distance: place.distance || 0,
-                photos: place.photos || [],
+                photos: (place.photos && place.photos.length > 0)
+                  ? place.photos
+                  : (fallbackImage ? [fallbackImage] : []),
                 lat: place.lat,
                 lng: place.lng
               };
