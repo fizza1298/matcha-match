@@ -17,6 +17,7 @@ export default function AIFinder() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [demoOpen, setDemoOpen] = useState(false);
+  const [isVercel, setIsVercel] = useState(false);
 
   // Check if chat should be opened from URL parameter
   useEffect(() => {
@@ -31,22 +32,30 @@ export default function AIFinder() {
   }, [searchParams, navigate]);
 
   useEffect(() => {
-    const isVercel = window.location.hostname.includes("vercel.app");
-    if (!isVercel) return;
+    const onVercel = window.location.hostname.includes("vercel.app");
+    setIsVercel(onVercel);
+    if (!onVercel) return;
     const dismissed = sessionStorage.getItem("mm_demo_notice_dismissed");
     if (!dismissed) setDemoOpen(true);
   }, []);
 
   const handleDemoClose = (open: boolean) => {
-    if (!open) sessionStorage.setItem("mm_demo_notice_dismissed", "true");
+    if (!open) {
+      sessionStorage.setItem("mm_demo_notice_dismissed", "true");
+      if (isVercel) {
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent("openChatWidget"));
+        }, 150);
+      }
+    }
     setDemoOpen(open);
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent page-gradient">
       <Header />
       <Dialog open={demoOpen} onOpenChange={handleDemoClose}>
-        <DialogContent>
+        <DialogContent className="z-[60]">
           <DialogHeader>
             <DialogTitle>Live Demo Notice</DialogTitle>
             <DialogDescription>
@@ -60,6 +69,7 @@ export default function AIFinder() {
             <a
               className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
               href="https://www.youtube.com/watch?v=p_Va9aGfPpY"
+              onClick={() => handleDemoClose(false)}
               target="_blank"
               rel="noreferrer"
             >

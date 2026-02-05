@@ -11,7 +11,7 @@ interface Message {
 }
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(true); // Changed to true - chat opens by default
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -139,7 +139,7 @@ export default function ChatWidget() {
       {/* Chat Button - Fixed at bottom-right corner */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 w-16 h-16 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 z-[9999] flex items-center justify-center group border-4 border-white"
+        className="fixed bottom-4 right-4 w-16 h-16 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 z-[40] flex items-center justify-center group border-4 border-white"
         aria-label="Toggle chat"
         style={{ position: 'fixed' }}
       >
@@ -153,7 +153,7 @@ export default function ChatWidget() {
 
       {/* Chat Box */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 w-[600px] h-[700px] bg-white rounded-lg shadow-2xl border border-green-200 z-[9998] flex flex-col">
+        <div className="fixed bottom-24 right-4 w-[600px] h-[700px] bg-white rounded-lg shadow-2xl border border-green-200 z-[39] flex flex-col">
           {/* Chat Header */}
           <div className="bg-green-600 text-white px-4 py-3 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center space-x-2">
